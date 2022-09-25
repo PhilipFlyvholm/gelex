@@ -150,3 +150,13 @@ exports['get integer twice using seek'] = function (test) {
     test.equal(lexer.next(), null);
     test.equal(lexer.position(), 8);
 };
+
+exports['get next one'] = function (test) {
+    gelex.define('one', '1');
+    let lexer = gelex.lexer('50 1 2 1');
+    let result = lexer.nextUntil('one');
+    test.deepEqual(result, { type: 'one', value: '1', begin: 3, end: 3 });
+    lexer = gelex.lexer('50 2');
+    result = lexer.nextUntil('one');
+    test.equal(result, null);
+}
